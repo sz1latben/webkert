@@ -48,10 +48,14 @@ export class OrderFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.form.valid) {
-      console.log('Rendelés elküldve:', this.form.value);
-      alert('Rendelés elküldve!');
-      this.form.reset();
+    if (this.form.invalid) {
+      // Megjelöli a mezőket hibásnak, ha nem érvényes
+      this.form.markAllAsTouched();
+      return;
     }
+  
+    console.log('Rendelés elküldve:', this.form.value);
+    alert('Köszönjük! Rendelését rögzítettük.');
+    this.form.reset();
   }
 }

@@ -2,11 +2,20 @@
     <mat-form-field appearance="outline" class="form-field">
       <mat-label>Név</mat-label>
       <input matInput formControlName="nev" required>
+      <mat-error *ngIf="form.get('nev')?.hasError('required') && form.get('nev')?.touched">
+        A név megadása kötelező.
+      </mat-error>
     </mat-form-field>
   
     <mat-form-field appearance="outline" class="form-field">
       <mat-label>Email</mat-label>
       <input matInput type="email" formControlName="email" required>
+      <mat-error *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">
+        Az e-mail megadása kötelező.
+      </mat-error>
+      <mat-error *ngIf="form.get('email')?.hasError('email') && form.get('email')?.touched">
+        Érvénytelen e-mail formátum.
+      </mat-error>
     </mat-form-field>
   
     <mat-form-field appearance="outline" class="form-field">
@@ -19,10 +28,20 @@
       <mat-select formControlName="csomagId">
         <mat-option *ngFor="let c of csomagok" [value]="c.id">{{ c.nev }} – {{ c.havidij | currency:'HUF' }}</mat-option>
       </mat-select>
+      <mat-error *ngIf="form.get('csomagId')?.hasError('required') && form.get('csomagId')?.touched">
+        Válassz ki egy csomagot!
+      </mat-error>
     </mat-form-field>
   
-    <mat-checkbox formControlName="feltetelek">Elfogadom a feltételeket</mat-checkbox>
+    <mat-checkbox formControlName="feltetelek">
+      Elfogadom a feltételeket
+    </mat-checkbox>
+    <div class="checkbox-error" *ngIf="form.get('feltetelek')?.hasError('required') && form.get('feltetelek')?.touched">
+      A feltételek elfogadása kötelező.
+    </div>
   
-    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Megrendelem</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+      Megrendelem
+    </button>
   </form>
   

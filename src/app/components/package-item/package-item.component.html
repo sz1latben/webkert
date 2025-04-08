@@ -1,1 +1,17 @@
-<p>package-item works!</p>
+<mat-card class="csomag-kartya">
+    <mat-card-title>{{ csomag.nev }}</mat-card-title>
+    <mat-card-content>
+      <p>{{ csomag.leiras }}</p>
+      <ul>
+        <li>Adat: {{ csomag.adatMennyisegGb }} GB</li>
+        <li>Hívás: {{ csomag.perc }} perc</li>
+        <li>SMS: {{ csomag.sms }}</li>
+        <li>Havidíj: {{ csomag.havidij | havidijFormat }}</li>
+      </ul>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="primary" class="megrendelem-gomb">Megrendelem</button>
+    </mat-card-actions>
+      
+  </mat-card>
+  

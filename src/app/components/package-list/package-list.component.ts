@@ -1,11 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { PackageService } from '../../services/package.service';
+import { MobilCsomag } from '../../models/model';
+import { PackageItemComponent } from '../package-item/package-item.component';
 
 @Component({
   selector: 'app-package-list',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, PackageItemComponent],
   templateUrl: './package-list.component.html',
-  styleUrl: './package-list.component.scss'
+  styleUrls: ['./package-list.component.scss']
 })
-export class PackageListComponent {
+export class PackageListComponent implements OnInit {
+  csomagok: MobilCsomag[] = [];
 
+  constructor(private packageService: PackageService) {}
+
+  ngOnInit(): void {
+    this.packageService.getCsomagok().subscribe((data: MobilCsomag[]) => {
+      this.csomagok = data;
+    });
+  }
+
+  csomagMegrendelve(csomag: MobilCsomag): void {
+    alert(`Megrendelve: ${csomag.nev} (${csomag.havidij} Ft/hó)`);
+  }
+  
 }

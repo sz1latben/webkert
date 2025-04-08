@@ -1,0 +1,23 @@
+.csomag-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 2rem;
+  }
+  
+  @media (max-width: 600px) {
+    .csomag-kartya {
+      width: 100%;
+      max-width: 90vw;
+    }
+  }
+  
+  .csomag-cim {
+    text-align: center;
+    font-size: 1.8rem;
+    margin: 1.5rem 0 1rem;
+    font-weight: bold;
+  }
+  
+  

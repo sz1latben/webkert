@@ -1,1 +1,13 @@
-<p>package-list works!</p>
+<h2 class="csomag-cim">Mobilcsomagok</h2>
+
+<div *ngIf="csomagok.length > 0; else nincsCsomag" class="csomag-list">
+  <app-package-item
+    *ngFor="let csomag of csomagok"
+    [csomag]="csomag"
+    (megrendelve)="csomagMegrendelve($event)">
+  </app-package-item>
+</div>
+
+<ng-template #nincsCsomag>
+  <p style="text-align: center;">Jelenleg nincs elérhető mobilcsomag.</p>
+</ng-template>

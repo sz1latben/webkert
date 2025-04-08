@@ -1,12 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'havidijFormat'
+  name: 'havidijFormat',
+  standalone: true
 })
 export class HavidijFormatPipe implements PipeTransform {
-
-  transform(value: unknown, ...args: unknown[]): unknown {
-    return null;
+  transform(value: number): string {
+    return value.toLocaleString('hu-HU') + ' Ft/hó';
   }
-
 }

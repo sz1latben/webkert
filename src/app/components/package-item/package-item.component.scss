@@ -1,19 +1,22 @@
 .csomag-kartya {
-    width: 340px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 1rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-  }
+  width: 340px;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  background-color: #fefefe;
+  transition: transform 0.2s ease-in-out;
+}
 
-  .megrendelem-gomb {
-    width: 100%;
-    font-weight: bold;
-  }
-  
+.csomag-kartya:hover {
+  transform: translateY(-4px);
+}
 
-
-  
-  
+.megrendelem-gomb {
+  width: 100%;
+  font-weight: bold;
+  margin-top: auto;
+}

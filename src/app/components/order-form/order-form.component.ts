@@ -7,6 +7,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MobilCsomag } from '../../models/model';
+import { MatCardModule } from '@angular/material/card';
+
 
 @Component({
   selector: 'app-order-form',
@@ -18,7 +20,8 @@ import { MobilCsomag } from '../../models/model';
     MatInputModule,
     MatSelectModule,
     MatCheckboxModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule
   ],
   templateUrl: './order-form.component.html',
   styleUrls: ['./order-form.component.scss']

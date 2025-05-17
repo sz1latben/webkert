@@ -1,6 +1,23 @@
 <mat-toolbar color="primary">
-    <span style="font-weight: bold;">📱 Mobil Csomag Vásárlás</span>
-    <span class="spacer"></span>
-    <button mat-button routerLink="/csomagok" routerLinkActive="active">Csomagok</button>
-    <button mat-button routerLink="/rendeles" routerLinkActive="active">Rendelés</button>
-  </mat-toolbar>
+  <span style="font-weight: bold;">📱 Mobil Csomag Vásárlás</span>
+  <span class="spacer"></span>
+
+  <button mat-button routerLink="/csomagok">Csomagok</button>
+  <button mat-button *ngIf="auth.isLoggedIn()" routerLink="/rendeles">Rendelés</button>
+  <button mat-button *ngIf="!auth.isLoggedIn()" routerLink="/bejelentkezes">Bejelentkezés</button>
+  <button mat-button *ngIf="!auth.isLoggedIn()" routerLink="/regisztracio">Regisztráció</button>
+
+  <button mat-icon-button *ngIf="auth.isLoggedIn()" [matMenuTriggerFor]="menu">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item disabled>
+    {{ auth.getCurrentUserEmail() }}
+  </button>
+  <button mat-menu-item (click)="auth.logout()">
+    <mat-icon>logout</mat-icon>
+    Kilépés
+  </button>
+</mat-menu>

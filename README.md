@@ -2,7 +2,7 @@
 # ----------------------------------------------------------------
 
 Firebase deploy:
-https://mobil-csomag-vasarlas.web.app/csomagok
+https://mobil-csomag-vasarlas.web.app
 
 # ----------------------------------------------------------------
 

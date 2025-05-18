@@ -4,6 +4,8 @@ import { MobilCsomag } from '../../models/model';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { HavidijFormatPipe } from '../../pipes/havidij-format.pipe';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-package-item',
@@ -19,10 +21,18 @@ import { HavidijFormatPipe } from '../../pipes/havidij-format.pipe';
 })
 export class PackageItemComponent {
   @Input() csomag!: MobilCsomag;
-
   @Output() megrendelve = new EventEmitter<MobilCsomag>();
 
-  rendel(): void {
-    this.megrendelve.emit(this.csomag);
+  constructor(
+    private auth: AuthService,
+    private router: Router
+  ) {}
+
+  megrendelem() {
+    if (this.auth.isLoggedIn()) {
+      this.router.navigate(['/rendeles']);
+    } else {
+      alert('Kérjük, előbb jelentkezz be vagy regisztrálj a rendeléshez!');
+    }
   }
 }

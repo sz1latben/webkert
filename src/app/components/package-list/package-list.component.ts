@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { PackageService } from '../../services/package.service';
 import { MobilCsomag } from '../../models/model';
 import { PackageItemComponent } from '../package-item/package-item.component';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-package-list',
@@ -14,7 +16,7 @@ import { PackageItemComponent } from '../package-item/package-item.component';
 export class PackageListComponent implements OnInit {
   csomagok: MobilCsomag[] = [];
 
-  constructor(private packageService: PackageService) {}
+  constructor(private auth: AuthService, private router: Router, private packageService: PackageService) {}
 
   ngOnInit(): void {
     this.packageService.getCsomagok().subscribe((data: MobilCsomag[]) => {

@@ -6,6 +6,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -22,10 +23,12 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  constructor(public auth: AuthService) {}
+  constructor(public auth: AuthService, private router: Router) {}
   
   logout() {
-    this.auth.logout();
+    this.auth.logout().then(() => {
+      this.router.navigate(['/csomagok']);
+    });
   }
 
 }

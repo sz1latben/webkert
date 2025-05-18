@@ -1,36 +1,20 @@
 <div class="order-container">
   <mat-card class="order-card">
-    <h2>📦 Rendelési űrlap</h2>
+    <h2>📦 Rendelés</h2>
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-content">
 
       <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Név</mat-label>
-        <input matInput formControlName="nev" required>
-        <mat-error *ngIf="form.get('nev')?.hasError('required') && form.get('nev')?.touched">
-          A név megadása kötelező.
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Email</mat-label>
-        <input matInput type="email" formControlName="email" required>
-        <mat-error *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">
-          Az e-mail megadása kötelező.
-        </mat-error>
-        <mat-error *ngIf="form.get('email')?.hasError('email') && form.get('email')?.touched">
-          Érvénytelen e-mail formátum.
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="form-field">
         <mat-label>Cím</mat-label>
-        <input matInput formControlName="cim">
+        <input matInput formControlName="cim" required>
+        <mat-error *ngIf="form.get('cim')?.hasError('required') && form.get('cim')?.touched">
+          A cím megadása kötelező.
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Válassz mobilcsomagot</mat-label>
-        <mat-select formControlName="csomagId">
+        <mat-select formControlName="csomagId" (selectionChange)="frissitVegosszeg()">
           <mat-option *ngFor="let c of csomagok" [value]="c.id">
             {{ c.nev }} – {{ c.havidij | currency:'HUF' }}
           </mat-option>
@@ -39,6 +23,10 @@
           Válassz ki egy csomagot!
         </mat-error>
       </mat-form-field>
+
+      <div class="vegosszeg" *ngIf="vegosszeg !== null">
+        <strong>Végösszeg:</strong> {{ vegosszeg | currency:'HUF' }}
+      </div>
 
       <mat-checkbox formControlName="feltetelek">
         Elfogadom a feltételeket

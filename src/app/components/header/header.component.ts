@@ -22,6 +22,10 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  auth = inject(AuthService);
+  constructor(public auth: AuthService) {}
+  
+  logout() {
+    this.auth.logout();
+  }
 
 }

@@ -8,6 +8,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MobilCsomag } from '../../models/model';
 import { MatCardModule } from '@angular/material/card';
+import { AuthService } from '../../services/auth.service';
+import { FirestoreService } from '../../services/firestore.service';
+
 
 
 @Component({
@@ -38,27 +41,43 @@ export class OrderFormComponent implements OnInit {
     { id: 6, nev: 'Diák', leiras: '', adatMennyisegGb: 8, perc: 100, sms: 100, havidij: 3990 }
   ];
 
-  constructor(private fb: FormBuilder) {}
-
-  ngOnInit(): void {
+  vegosszeg: number | null = null;
+  constructor(private fb: FormBuilder, private auth: AuthService, private firestoreService: FirestoreService) {
     this.form = this.fb.group({
-      nev: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      cim: [''],
+      cim: ['', Validators.required],
       csomagId: [null, Validators.required],
       feltetelek: [false, Validators.requiredTrue]
     });
   }
 
-  onSubmit(): void {
-    if (this.form.invalid) {
-      // Megjelöli a mezőket hibásnak, ha nem érvényes
-      this.form.markAllAsTouched();
+  ngOnInit(): void {}
+
+  frissitVegosszeg() {
+    const csomagId = this.form.get('csomagId')?.value;
+    const csomag = this.csomagok.find(c => c.id === csomagId);
+    this.vegosszeg = csomag ? csomag.havidij : null;
+  }
+
+  async onSubmit() {
+    if (this.form.invalid) return;
+
+    const uid = this.auth.getUid();
+    const csomagId = this.form.get('csomagId')?.value;
+    const cim = this.form.get('cim')?.value;
+
+    if (!uid) {
+      alert('Be kell jelentkezni a rendeléshez.');
       return;
     }
-  
-    console.log('Rendelés elküldve:', this.form.value);
-    alert('Köszönjük! Rendelését rögzítettük.');
-    this.form.reset();
+
+    try {
+      await this.firestoreService.ujRendeles({ uid, csomagId, cim });
+      alert('✅ A rendelés sikeresen elmentve!');
+      this.form.reset();
+      this.vegosszeg = null;
+    } catch (err) {
+      console.error(err);
+      alert('❌ Hiba történt a mentés során.');
+    }
   }
 }

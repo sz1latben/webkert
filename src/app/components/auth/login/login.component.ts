@@ -39,8 +39,8 @@ export class LoginComponent {
 
     try {
       await this.auth.login(email!, jelszo!);
-      alert('Sikeres bejelentkezés!');
-      this.router.navigate(['/csomagok']); // 🔁 irány a főoldalra
+      //alert('Sikeres bejelentkezés!');
+      this.router.navigate(['/csomagok']); 
     } catch (err: any) {
       alert('Hiba: ' + err.message);
     }

@@ -9,6 +9,7 @@ import {
   UserCredential
 } from '@angular/fire/auth';
 import { Firestore, doc, setDoc, serverTimestamp } from '@angular/fire/firestore';
+import { updatePassword as firebaseUpdatePassword } from 'firebase/auth';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -18,7 +19,6 @@ export class AuthService {
   private currentUser: User | null = null;
 
   constructor() {
-    // Figyeljük a bejelentkezési állapotot
     onAuthStateChanged(this.auth, user => {
       this.currentUser = user;
     });
@@ -48,18 +48,24 @@ export class AuthService {
     return signOut(this.auth);
   }
 
-  // Be van-e jelentkezve
   isLoggedIn(): boolean {
     return this.currentUser !== null;
   }
 
-  // Bejelentkezett felhasználó e-mail címe
   getCurrentUserEmail(): string {
     return this.currentUser?.email ?? '';
   }
 
-  // Bejelentkezett felhasználó uid-je
   getUid(): string | null {
     return this.currentUser?.uid ?? null;
+  }
+
+  async updatePassword(newPassword: string): Promise<void> {
+    const user = this.auth.currentUser;
+    if (user) {
+      await firebaseUpdatePassword(user, newPassword);
+    } else {
+      throw new Error('Felhasználó nincs bejelentkezve');
+    }
   }
 }

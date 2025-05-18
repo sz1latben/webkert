@@ -1,1 +1,29 @@
-<p>profile works!</p>
+<mat-card>
+  <h2>🔐 Jelszó módosítása</h2>
+  <form [formGroup]="form" (ngSubmit)="onJelszoModositas()">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Új jelszó</mat-label>
+      <input matInput type="password" formControlName="ujJelszo" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Új jelszó újra</mat-label>
+      <input matInput type="password" formControlName="ujJelszoUjra" required>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+      Jelszó módosítása
+    </button>
+  </form>
+</mat-card>
+
+<mat-card class="mt-4">
+  <h2>📦 Korábbi rendeléseim</h2>
+  <div *ngIf="rendelesek.length === 0">Nincs még leadott rendelésed.</div>
+  <div *ngFor="let r of rendelesek" class="order-row">
+    <p><strong>Csomag ID:</strong> {{ r.csomagId }}</p>
+    <p><strong>Cím:</strong> {{ r.cim }}</p>
+    <p><strong>Dátum:</strong> {{ r.timestamp.toDate() | date:'yyyy.MM.dd HH:mm' }}</p>
+    <mat-divider></mat-divider>
+  </div>
+</mat-card>

@@ -1,15 +1,13 @@
-import { CanActivateFn, Router} from '@angular/router';
+import { CanActivateFn } from '@angular/router';
 import { inject } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { firstValueFrom } from 'rxjs';
 
-export const authGuard: CanActivateFn = () => {
-  const authService = inject(AuthService);
+export const authGuard: CanActivateFn = async () => {
+  const auth = inject(AngularFireAuth);
   const router = inject(Router);
 
-  if (authService.isLoggedIn()) {
-    return true;
-  } else {
-    router.navigate(['/bejelentkezes']);
-    return false;
-  }
+  const user = await firstValueFrom(auth.authState);
+  return user ? true : router.createUrlTree(['/bejelentkezes']);
 };

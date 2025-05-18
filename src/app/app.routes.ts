@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { PackageListComponent } from './components/package-list/package-list.component';
 import { OrderFormComponent } from './components/order-form/order-form.component';
 import { authGuard } from './guards/auth.guard';
+import { ProfileComponent } from './components/profile/profile.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/csomagok', pathMatch: 'full' },
@@ -17,5 +18,10 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./components/auth/login/login.component').then(m => m.LoginComponent)
   },
-  { path: '**', redirectTo: '/csomagok' }
+  { path: '**', redirectTo: '/csomagok' },
+  {
+    path: 'profil',
+    loadComponent: () =>
+      import('./components/profile/profile.component').then(m => m.ProfileComponent)
+  }
 ];

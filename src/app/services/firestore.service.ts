@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, addDoc, serverTimestamp } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, serverTimestamp, query, where, getDocs } from '@angular/fire/firestore';
+
 
 @Injectable({ providedIn: 'root' })
 export class FirestoreService {
@@ -12,4 +13,13 @@ export class FirestoreService {
       timestamp: serverTimestamp()
     });
   }
+
+  
+  async lekerRendelesek(uid: string) {
+    const ref = collection(this.firestore, 'Orders');
+    const q = query(ref, where('uid', '==', uid));
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as any[];
+  }
+
 }

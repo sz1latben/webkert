@@ -21,9 +21,11 @@
   <h2>📦 Korábbi rendeléseim</h2>
   <div *ngIf="rendelesek.length === 0">Nincs még leadott rendelésed.</div>
   <div *ngFor="let r of rendelesek" class="order-row">
-    <p><strong>Csomag ID:</strong> {{ r.csomagId }}</p>
+    <p><strong>Csomag:</strong> {{ getCsomagNev(r.csomagId) }}</p>
     <p><strong>Cím:</strong> {{ r.cim }}</p>
     <p><strong>Dátum:</strong> {{ r.timestamp.toDate() | date:'yyyy.MM.dd HH:mm' }}</p>
+    <button mat-stroked-button color="warn" (click)="torolRendelest(r.id)">🗑️ Törlés</button>
     <mat-divider></mat-divider>
   </div>
 </mat-card>
+

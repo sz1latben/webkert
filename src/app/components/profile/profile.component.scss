@@ -1,0 +1,38 @@
+mat-card {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  background-color: #fff;
+}
+
+h2 {
+  margin-bottom: 1rem;
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+
+.full-width {
+  width: 100%;
+}
+
+button[type="submit"] {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.mt-4 {
+  margin-top: 2rem;
+}
+
+.order-row {
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+mat-divider {
+  margin: 1rem 0;
+  background-color: rgba(0, 0, 0, 0.1);
+}

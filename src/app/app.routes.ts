@@ -18,10 +18,12 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./components/auth/login/login.component').then(m => m.LoginComponent)
   },
-  { path: '**', redirectTo: '/csomagok' },
   {
     path: 'profil',
     loadComponent: () =>
-      import('./components/profile/profile.component').then(m => m.ProfileComponent)
-  }
+      import('./components/profile/profile.component').then(m => m.ProfileComponent),
+    canActivate: [authGuard]
+  },
+  { path: '**', redirectTo: '/csomagok' }
 ];
+
